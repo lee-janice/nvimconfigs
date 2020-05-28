@@ -1,4 +1,4 @@
-" " Pyenv and rbenv config in case you rock rbenv/pyenv
+" Pyenv and rbenv config in case you rock rbenv/pyenv
 " let g:python_host_prog = '~/.pyenv/versions/neovim2/bin/python'
 " let g:python3_host_prog = '~/.pyenv/versions/neovim3/bin/python'
 " let g:ruby_host_prog = '~/.rbenv/versions/2.6.2/bin/neovim-ruby-host'

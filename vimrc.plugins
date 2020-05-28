@@ -7,9 +7,8 @@ call plug#begin('~/.config/nvim/plugged')
 " Plugins: Proc.vim shell scripting  and file stuff --------------------------
 Plug 'Shougo/vimproc.vim', {'do': 'make'}
 
-" Plugins: Vim Repeat on steroids
+" Plugins: Vim Repeat on steroids --------------------------------------------
 Plug 'tpope/vim-repeat'
-
 
 " Plugins: Airline -----------------------------------------------------------
 Plug 'vim-airline/vim-airline'
@@ -26,7 +25,7 @@ let g:airline#extensions#tabline#show_buffers = 0
 let g:airline#extensions#tabline#show_close_button = 0
 set noshowmode
 
-" Plugins: Theme
+" Plugins: Theme -------------------------------------------------------------
 Plug 'chriskempson/vim-tomorrow-theme'
 Plug 'sainnhe/gruvbox-material'
 
@@ -43,33 +42,25 @@ let g:indent_guides_color_change_percent = 5
 " Plugins: NerdTree base -----------------------------------------------------
 Plug 'scrooloose/nerdtree'
 
-" Plugins: NerdTree-git ------------------------------------------------------
+" " Plugins: NerdTree-git ------------------------------------------------------
 Plug 'Xuyuanp/nerdtree-git-plugin'
 
 " Plugins: NerdTree Tabs -----------------------------------------------------
 Plug 'jistr/vim-nerdtree-tabs'
 
 " Ctrl-P to Display the file browser tree
-nmap <C-P> :NERDTreeTabsToggle<CR>
+nmap <C-P> :NERDTreeToggle<CR>
 
-" ,p to show current file in the tree
+" space-p to show current file in the tree
 nmap <leader>p :NERDTreeFind<CR>
 
-" Open NerdTree by default
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * NERDTreeFind | wincmd p
-
-" Open NerdTree in every tab
-autocmd BufWinEnter * NERDTreeMirror
-
 " Plugins: nerdcommenter -----------------------------------------------------
-
 Plug 'scrooloose/nerdcommenter'
 
 let g:NERDSpaceDelims=1
 let g:NERDDefaultAlign = 'left'
 
-" ,/ to invert comment on the current line/selection
+" Space/ to invert comment on the current line/selection
 nmap <leader>/ :call NERDComment(0, "invert")<cr>
 vmap <leader>/ :call NERDComment(0, "invert")<cr>
 
@@ -104,43 +95,8 @@ nmap <localleader>t :BTags<cr>
 " fuzzy-buffers
 nmap <leader>b :Buffers<cr>
 
-" Plugins: CtrlP (on L) ------------------------------------------------------
-Plug 'ctrlpvim/ctrlp.vim'
-Plug 'd11wtq/ctrlp_bdelete.vim'
-
-let g:ctrlp_clear_cache_on_exit = 1
-let g:ctrlp_max_height = 20
-" jump to buffer in the same tab if already open
-let g:ctrlp_switch_buffer = 0
-" if in git repo - use git file listing command, should be faster
-" using this option overrides standard CtrlP ignore list based on vim wildignore
-" so use 'grep -v ...' to exclude common image and font files from the search
-let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files --exclude-standard -cod | grep -viE "\.(png|gif|jpg|gz|woff|eot|tiff|ttf|otf)$"']
-" open multiple files with <c-z> to mark and <c-o> to open. v - opening in
-" vertical splits; j - jump to first open buffer; r - open first in current buffer
-let g:ctrlp_open_multiple_files = 'hjr'
-let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'mixed', 'line']
-let g:ctrlp_working_path_mode = 'ra'
-" prevent CtrlP from adding the default map
-let g:ctrlp_map = '<c-l>'
-let g:ctrlp_cmd = 'CtrlP'
-map <c-l> :CtrlP <CR>
-
-" Plugins: Greplace files ----------------------------------------------------
-Plug 'vim-scripts/greplace.vim'
-nmap <leader>Gs :Gsearch<cr>
-nmap <leader>GS :Gbuffersearch<cr>
-nmap <leader>Gr :Greplace<cr>
-
-" replace or edit multiple files at once, then use :Greplace to incorporate
-" the changes, followed by :wall to save all modified buffers
-
-if executable("ag")
-  set grepprg=ag
-  let g:grep_cmd_opts = '--line-numbers --noheading'
-endif
-
 " Plugins: Gundo -------------------------------------------------------------
+" visualize the undo tree
 Plug 'sjl/gundo.vim'
 
 let g:gundo_close_on_revert = 1
@@ -209,7 +165,7 @@ Plug 'vim-scripts/Merginal'
 " ,g for Ggrep
 nmap <leader>g :silent Ggrep<space>
 
-" ,f for global git serach for word under the cursor (with highlight)
+" ,f for global git search for word under the cursor (with highlight)
 nmap <leader>f :let @/="\\<<C-R><C-W>\\>"<CR>:set hls<CR>:silent Ggrep -w "<C-R><C-W>"<CR>:ccl<CR>:cw<CR><CR>
 
 " same in visual mode
@@ -260,7 +216,8 @@ let g:coc_global_extensions = [
   \ 'coc-json', 'coc-pairs', 'coc-eslint',  'coc-tsserver',
   \ 'coc-html', 'coc-css', 'coc-solargraph', 'coc-yaml', 'coc-emmet',
   \ 'coc-lists', 'coc-snippets', 'coc-git', 'coc-elixir', 'coc-marketplace',
-  \ 'coc-webpack', 'coc-lua', 'coc-vimlsp', 'coc-docker', 'coc-tslint']
+  \ 'coc-webpack', 'coc-lua', 'coc-vimlsp', 'coc-docker', 'coc-tslint',
+  \ 'coc-python']
 
 let g:coc_user_config = {
   \ "diagnostic.errorSign": '⚠',
@@ -381,8 +338,13 @@ let g:ale_echo_msg_warning_str = '⚐'
 " Plugins: Tagbar-------------------------------------------------------------
 Plug 'majutsushi/tagbar'
 
+nmap <leader>tb :TagbarToggle<CR>
+
 " Open Tagbar by default
 " autocmd VimEnter * TagbarOpen
+
+" Plugins: Surround-------------------------------------------------------------
+Plug 'tpope/vim-surround'
 
 " End Plug
 call plug#end()
